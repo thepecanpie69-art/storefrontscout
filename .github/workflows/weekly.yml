@@ -1,0 +1,26 @@
+name: weekly-feed
+on:
+  schedule: [{cron: "0 13 * * 1"}]   # Mondays 8am CT (CDT)
+  workflow_dispatch: {}
+permissions: {contents: write}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python pipeline/build_feed.py --days 7
+      - run: python pipeline/send_delivery.py
+        env:
+          SEND: ${{ vars.SEND_ENABLED }}          # set to 1 only after Clay approves
+          EMAIL_PROVIDER: ${{ vars.EMAIL_PROVIDER }}
+          EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
+          FROM_EMAIL: ${{ vars.FROM_EMAIL }}
+          POSTAL_ADDRESS: ${{ vars.POSTAL_ADDRESS }}
+          UNSUBSCRIBE_URL: ${{ vars.UNSUBSCRIBE_URL }}
+      - uses: actions/upload-artifact@v4
+        with: {name: feed, path: output/}
+      - run: |
+          git config user.name feed-bot && git config user.email feed-bot@users.noreply.github.com
+          git add docs/sample.csv && git commit -m "weekly sample" || true && git push
