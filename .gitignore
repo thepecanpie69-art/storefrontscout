@@ -4,3 +4,4 @@ subscribers.csv
 !config.example.env
 __pycache__/
 prospects.csv
+private/
