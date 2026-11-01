@@ -3,3 +3,4 @@ subscribers.csv
 *.env
 !config.example.env
 __pycache__/
+prospects.csv
