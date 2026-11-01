@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thepecanpie69-art.github.io/storefrontscout/sitemap.xml
