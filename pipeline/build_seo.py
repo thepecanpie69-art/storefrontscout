@@ -23,6 +23,15 @@ def table(rows, n=15):
     rows = sorted(rows, key=lambda r: r["permit_issued"], reverse=True)[:n]
     t = "".join(f"<tr><td>{html.escape(r['business'])}</td><td>{html.escape(r['city'])}</td><td>{r['permit_issued']}</td></tr>" for r in rows)
     return f"<table><tr><th>Business</th><th>City</th><th>Permit issued</th></tr>{t}</table>"
+def weekly(rows, today, n=10):
+    cut = (today - dt.timedelta(days=7)).isoformat()
+    rows = sorted([r for r in rows if r["permit_issued"] >= cut], key=lambda r: r["permit_issued"], reverse=True)[:n]
+    if not rows: return "<h2>This week's new openings (free)</h2><p>No new permits in this area in the last 7 days. Check back next Monday.</p>"
+    t = "".join(f"<tr><td>{html.escape(r['business'])}</td><td>{html.escape(r['city'])}</td><td>{r['permit_issued']}</td></tr>" for r in rows)
+    return (f"<h2>This week's {len(rows)} new openings (free)</h2><p>Free sample: up to 10 businesses that received a Texas sales tax permit in the last 7 days (as of {today}). "
+            "Public business records only; sole proprietors and likely home addresses are removed. Data is provided as-is and may contain errors; a permit doesn't guarantee a business is open. "
+            "We're a new, small service.</p>"
+            f"<table><tr><th>Business</th><th>City</th><th>Permit issued</th></tr>{t}</table>{CTA}")
 def main():
     leads = json.load(open(sys.argv[1])) if len(sys.argv) > 1 else bf.build(30, 5000)
     today = dt.date.today(); mon = today.strftime("%B %Y"); pages = []
@@ -32,15 +41,15 @@ def main():
         page(fn, f"New businesses opening in {c}, TX ({mon})", f"Recently permitted storefronts in {c}, Texas from Texas Comptroller sales tax permit data. Updated {today}.",
           f"<h1>New businesses opening in {c}, TX: {mon}</h1><p>These {c} businesses received a Texas sales tax permit in the last 30 days (as of {today}). "
           f"Sole proprietors, chains and likely home addresses are filtered out. We found {len(rows)} in {c} in that window; below is a sample of the most recent.</p>"
-          f"{table(rows)}<h2>Get every new {c} storefront, every Monday</h2><p>The full list adds street address, ZIP, industry code, first-sales date and a sales angle for commercial cleaners and insurance agents. No phone numbers or emails (the public records don't include them).</p>{CTA}")
+          f"{weekly(rows, today)}<h2>Recent 30 days (sample)</h2>{table(rows)}<h2>Get every new {c} storefront, every Monday</h2><p>The full list adds street address, ZIP, industry code, first-sales date and a sales angle for commercial cleaners and insurance agents. No phone numbers or emails (the public records don't include them).</p>{CTA}")
     for c in COUNTIES:
         rows = [r for r in leads if r["county"] == c]
         fn = f"new-businesses-{slug(c)}-county-tx.html"; pages.append((fn, c + " County"))
         page(fn, f"New businesses in {c} County, TX ({mon})", f"Recently permitted storefronts in {c} County, Texas. Updated {today}.",
-          f"<h1>New businesses in {c} County, TX: {mon}</h1><p>{len(rows)} filtered {c} County businesses received a Texas sales tax permit in the last 30 days (as of {today}). Sample:</p>{table(rows,20)}{CTA}")
+          f"<h1>New businesses in {c} County, TX: {mon}</h1><p>{len(rows)} filtered {c} County businesses received a Texas sales tax permit in the last 30 days (as of {today}). </p>{weekly(rows, today)}<h2>Recent 30 days (sample)</h2>{table(rows,20)}{CTA}")
     links = "".join(f'<li><a href="{f}">New businesses in {n}</a></li>' for f, n in pages)
     page("new-businesses-dfw.html", f"New businesses opening in Dallas-Fort Worth ({mon})", "New DFW storefronts by city and county from Texas sales tax permit data.",
-      f"<h1>New businesses opening in Dallas-Fort Worth: {mon}</h1><p>{len(leads)} filtered new storefronts across Dallas, Tarrant, Collin and Denton counties in the last 30 days (as of {today}).</p><ul>{links}</ul>{table(leads,10)}{CTA}")
+      f"<h1>New businesses opening in Dallas-Fort Worth: {mon}</h1><p>{len(leads)} filtered new storefronts across Dallas, Tarrant, Collin and Denton counties in the last 30 days (as of {today}).</p><ul>{links}</ul>{weekly(leads, today)}{CTA}")
     page("for-commercial-cleaners.html", "New DFW commercial cleaning leads | StorefrontScout", "Weekly list of newly permitted DFW restaurants, salons, gyms, offices and shops for commercial cleaning companies.",
       "<h1>For commercial cleaning companies</h1><p>New businesses sign cleaning contracts around the time they open. StorefrontScout gives you a weekly list of DFW storefronts that just received a Texas sales tax permit, so you can reach them early.</p>"
       "<ul><li>Restaurants, salons, gyms, medical offices, retail shops and offices, tagged by trade fit</li><li>Street address, city, ZIP, industry code, permit and first-sales dates</li><li>A one-line suggested angle for each lead</li><li>Chains, out-of-state filers, sole proprietors and likely home addresses filtered out</li></ul>"
@@ -51,7 +60,7 @@ def main():
       "<ul><li>New businesses in Dallas, Tarrant, Collin and Denton counties</li><li>Street address, city, ZIP, industry code, permit and first-sales dates</li><li>A suggested coverage angle for each lead</li><li>Chains, out-of-state filers, sole proprietors and likely home addresses filtered out</li></ul>"
       "<p><b>What it isn't:</b> no phone numbers or emails, and no guarantee of a set number of leads. Follow CAN-SPAM, TCPA and Do-Not-Call rules when you reach out. We're new, so there are no customer testimonials yet.</p>"
       f"<p>Try one 30-day list for $9 first, with a refund within 7 days if it isn't useful.</p>{CTA}<p>See a sample: <a href=\"new-businesses-dfw.html\">this month's new DFW businesses</a>.</p>")
-    urls = ["", "new-businesses-dfw.html", "for-commercial-cleaners.html", "for-insurance-agents.html"] + [f for f, _ in pages]
+    urls = ["", "new-businesses-dfw.html", "for-commercial-cleaners.html", "for-insurance-agents.html", "dfw-pour-report.html"] + [f for f, _ in pages]
     open(os.path.join(D, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"<url><loc>{BASE}{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls) + "</urlset>\n")
     open(os.path.join(D, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n")
