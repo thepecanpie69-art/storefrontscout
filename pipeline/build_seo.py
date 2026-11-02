@@ -60,7 +60,7 @@ def main():
       "<ul><li>New businesses in Dallas, Tarrant, Collin and Denton counties</li><li>Street address, city, ZIP, industry code, permit and first-sales dates</li><li>A suggested coverage angle for each lead</li><li>Chains, out-of-state filers, sole proprietors and likely home addresses filtered out</li></ul>"
       "<p><b>What it isn't:</b> no phone numbers or emails, and no guarantee of a set number of leads. Follow CAN-SPAM, TCPA and Do-Not-Call rules when you reach out. We're new, so there are no customer testimonials yet.</p>"
       f"<p>Try one 30-day list for $9 first, with a refund within 7 days if it isn't useful.</p>{CTA}<p>See a sample: <a href=\"new-businesses-dfw.html\">this month's new DFW businesses</a>.</p>")
-    urls = ["", "new-businesses-dfw.html", "for-commercial-cleaners.html", "for-insurance-agents.html", "dfw-pour-report.html"] + [f for f, _ in pages]
+    urls = ["", "new-businesses-dfw.html", "for-commercial-cleaners.html", "for-insurance-agents.html", "dfw-pour-report.html", "catalog.json", "llms.txt"] + [f for f, _ in pages]
     open(os.path.join(D, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"<url><loc>{BASE}{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls) + "</urlset>\n")
     open(os.path.join(D, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n")

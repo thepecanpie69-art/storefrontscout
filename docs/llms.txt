@@ -1,0 +1,10 @@
+# StorefrontScout
+> Lead lists of newly permitted Dallas-Fort Worth businesses, built from public Texas government data. New, small service.
+
+- Weekly Lead Feed: new DFW storefronts (Texas Comptroller sales tax permits). $9 one-time 30-day list, $19/mo founding, $29/mo. Free sample: https://thepecanpie69-art.github.io/storefrontscout/sample.csv
+- DFW Pour Report: new TABC alcohol permit applications in DFW. $15 one-time, $29/mo. Free sample: https://thepecanpie69-art.github.io/storefrontscout/pour-sample.csv
+- Machine-readable offers with buy links: https://thepecanpie69-art.github.io/storefrontscout/catalog.json
+- Delivery: Manual: a CSV is emailed to the checkout email address, usually within 24 hours. Delivery is not yet automated.
+- Refunds: If your first list isn't useful, email us within 7 days and we'll refund it. Subscriptions cancel anytime by email.
+- Data: Built from public government records (business fields only, no phone numbers or emails, likely home addresses removed). Provided as-is and may contain errors. Not affiliated with or endorsed by the Texas Comptroller or TABC. Buyers must follow CAN-SPAM, TCPA and Do-Not-Call rules when contacting listed businesses.
+- Contact: storefrontscout@mail.grokbot.com

@@ -1,0 +1,63 @@
+{
+ "seller": "StorefrontScout",
+ "site": "https://thepecanpie69-art.github.io/storefrontscout/",
+ "contact": "storefrontscout@mail.grokbot.com",
+ "currency": "USD",
+ "updated": "2026-11-02",
+ "note": "New, small service. Payments by Stripe.",
+ "delivery": "Manual: a CSV is emailed to the checkout email address, usually within 24 hours. Delivery is not yet automated.",
+ "refund_policy": "If your first list isn't useful, email us within 7 days and we'll refund it. Subscriptions cancel anytime by email.",
+ "disclaimer": "Built from public government records (business fields only, no phone numbers or emails, likely home addresses removed). Provided as-is and may contain errors. Not affiliated with or endorsed by the Texas Comptroller or TABC. Buyers must follow CAN-SPAM, TCPA and Do-Not-Call rules when contacting listed businesses.",
+ "products": [
+  {
+   "id": "weekly-lead-feed",
+   "name": "StorefrontScout Weekly Lead Feed",
+   "description": "Weekly CSV of businesses in Dallas, Tarrant, Collin and Denton counties (Texas) that just received a Texas sales tax permit, filtered for commercial cleaners and insurance agents.",
+   "source_data": "Texas Comptroller sales tax permit open data (data.texas.gov)",
+   "page": "https://thepecanpie69-art.github.io/storefrontscout/",
+   "free_sample_csv": "https://thepecanpie69-art.github.io/storefrontscout/sample.csv",
+   "offers": [
+    {
+     "name": "30-day list",
+     "price": 9,
+     "billing": "one_time",
+     "buy_url": "https://buy.stripe.com/28E4gzfzF7mpc6Qd6ogEg00"
+    },
+    {
+     "name": "Weekly feed, founding",
+     "price": 19,
+     "billing": "monthly",
+     "buy_url": "https://buy.stripe.com/7sYbJ1gDJ225daU9UcgEg01"
+    },
+    {
+     "name": "Weekly feed, standard",
+     "price": 29,
+     "billing": "monthly",
+     "buy_url": "https://buy.stripe.com/14AfZhcntcGJ7QA5DWgEg02"
+    }
+   ]
+  },
+  {
+   "id": "dfw-pour-report",
+   "name": "DFW Pour Report",
+   "description": "List of DFW businesses that just filed a new Texas alcohol permit application, for distributors, POS, insurance, security and other bar and restaurant vendors.",
+   "source_data": "TABC Pending Original License Applications, Texas Open Data Portal dataset mxm5-tdpj",
+   "page": "https://thepecanpie69-art.github.io/storefrontscout/dfw-pour-report.html",
+   "free_sample_csv": "https://thepecanpie69-art.github.io/storefrontscout/pour-sample.csv",
+   "offers": [
+    {
+     "name": "Current list",
+     "price": 15,
+     "billing": "one_time",
+     "buy_url": "https://buy.stripe.com/fZu00j9bheOR3Ak7M4gEg03"
+    },
+    {
+     "name": "Weekly list",
+     "price": 29,
+     "billing": "monthly",
+     "buy_url": "https://buy.stripe.com/00w14nevBeOR5Is8Q8gEg04"
+    }
+   ]
+  }
+ ]
+}
