@@ -3,7 +3,7 @@
  "site": "https://thepecanpie69-art.github.io/storefrontscout/",
  "contact": "storefrontscout@mail.grokbot.com",
  "currency": "USD",
- "updated": "2026-11-02",
+ "updated": "2026-11-05",
  "note": "New, small service. Payments by Stripe.",
  "delivery": "Manual: a CSV is emailed to the checkout email address, usually within 24 hours. Delivery is not yet automated.",
  "refund_policy": "If your first list isn't useful, email us within 7 days and we'll refund it. Subscriptions cancel anytime by email.",
