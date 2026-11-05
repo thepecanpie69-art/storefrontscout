@@ -6,7 +6,7 @@ import build_feed as bf
 BASE = "https://thepecanpie69-art.github.io/storefrontscout/"
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs")
 L9, L19, L29 = "https://buy.stripe.com/28E4gzfzF7mpc6Qd6ogEg00", "https://buy.stripe.com/7sYbJ1gDJ225daU9UcgEg01", "https://buy.stripe.com/14AfZhcntcGJ7QA5DWgEg02"
-CITIES = ["Dallas", "Fort Worth", "Plano", "Frisco", "McKinney", "Denton", "Arlington", "Irving", "Garland", "Carrollton", "Allen", "Lewisville"]
+CITIES = ["Dallas", "Fort Worth", "Plano", "Frisco", "McKinney", "Denton", "Arlington", "Irving", "Garland", "Carrollton", "Allen", "Lewisville", "Richardson", "Mansfield", "Grand Prairie", "Flower Mound", "Keller", "Southlake"]
 COUNTIES = ["Dallas", "Tarrant", "Collin", "Denton"]
 CSS = "body{font-family:system-ui,sans-serif;max-width:860px;margin:0 auto;padding:20px;line-height:1.5;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:6px;text-align:left;font-size:14px}.b{display:inline-block;background:#0a7;color:#fff;padding:10px 14px;border-radius:6px;text-decoration:none;margin:4px 6px 4px 0}nav a{margin-right:10px}footer{margin-top:40px;font-size:13px;color:#555;border-top:1px solid #ddd;padding-top:10px}"
 def slug(s): return s.lower().replace(" ", "-")
