@@ -10,7 +10,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
+      # Lead-feed sample (7-day) + full SEO city/county rebuild (30-day) + Pour Report sample
       - run: python pipeline/build_feed.py --days 7
+      - run: python pipeline/build_seo.py
+      - run: python pipeline/build_pour.py
       - run: python pipeline/send_delivery.py
         env:
           SEND: ${{ vars.SEND_ENABLED }}          # set to 1 only after Clay approves
@@ -23,4 +26,8 @@ jobs:
         with: {name: feed, path: output/}
       - run: |
           git config user.name feed-bot && git config user.email feed-bot@users.noreply.github.com
-          git add docs/sample.csv && git commit -m "weekly sample" || true && git push
+          git add docs/
+          git commit -m "weekly SEO + Pour sample refresh" || true
+          git push
+      # Notify search engines of updated public pages (free IndexNow)
+      - run: python pipeline/submit_indexnow.py
